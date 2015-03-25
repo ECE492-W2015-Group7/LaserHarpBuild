@@ -3,7 +3,7 @@
  <debug showDebugMenu="0" />
  <systemtable>
   <columns>
-   <connections preferredWidth="319" />
+   <connections preferredWidth="335" />
    <irq preferredWidth="34" />
    <inputclock preferredWidth="187" />
    <name preferredWidth="321" />
@@ -12,13 +12,13 @@
  </systemtable>
  <clocktable>
   <columns>
-   <clockname preferredWidth="323" />
-   <clocksource preferredWidth="323" />
-   <frequency preferredWidth="320" />
+   <clockname preferredWidth="382" />
+   <clocksource preferredWidth="382" />
+   <frequency preferredWidth="380" />
   </columns>
  </clocktable>
  <library
-   expandedCategories="Library/University Program,Library/Interface Protocols/Ethernet,Library/Memories and Memory Controllers,Library/Terasic Technologies Inc,Library/University Program/Audio &amp; Video,Library,Project,Library/University Program/Audio &amp; Video/Video,Library/Interface Protocols/Ethernet/Example,Library/Interface Protocols,Library/Memories and Memory Controllers/On-Chip" />
+   expandedCategories="Library,Library/Peripherals/Microcontroller Peripherals,Project,Library/Peripherals" />
  <window width="1440" height="860" x="0" y="0" />
  <hdlexample language="VERILOG" />
 </preferences>

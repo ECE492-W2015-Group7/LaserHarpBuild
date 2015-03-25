@@ -31,8 +31,8 @@
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
 //   PKT_TRANS_LOCK:      65 (arbitration locking enabled)
-//   ST_DATA_W:           100
-//   ST_CHANNEL_W:        15
+//   ST_DATA_W:           102
+//   ST_CHANNEL_W:        17
 // ------------------------------------------
 
 module niosII_system_cmd_xbar_mux
@@ -41,15 +41,15 @@ module niosII_system_cmd_xbar_mux
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [100-1   : 0]  sink0_data,
-    input [15-1: 0]  sink0_channel,
+    input [102-1   : 0]  sink0_data,
+    input [17-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [100-1   : 0]  sink1_data,
-    input [15-1: 0]  sink1_channel,
+    input [102-1   : 0]  sink1_data,
+    input [17-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
@@ -59,8 +59,8 @@ module niosII_system_cmd_xbar_mux
     // Source
     // ----------------------
     output                      src_valid,
-    output [100-1    : 0] src_data,
-    output [15-1 : 0] src_channel,
+    output [102-1    : 0] src_data,
+    output [17-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -71,12 +71,12 @@ module niosII_system_cmd_xbar_mux
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 100 + 15 + 2;
+    localparam PAYLOAD_W        = 102 + 17 + 2;
     localparam NUM_INPUTS       = 2;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 1;
-    localparam ST_DATA_W        = 100;
-    localparam ST_CHANNEL_W     = 15;
+    localparam ST_DATA_W        = 102;
+    localparam ST_CHANNEL_W     = 17;
     localparam PKT_TRANS_LOCK   = 65;
 
     // ------------------------------------------

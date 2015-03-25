@@ -9,12 +9,12 @@ use ieee.VITAL_Primitives.all;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
-entity frequencyDivider is
+entity SampleRateClk is
     Port ( clk50MHz : in  std_logic;
            clk32000Hz : out  std_logic);
-end frequencyDivider;
+end SampleRateClk;
 
-architecture avalon of frequencyDivider is
+architecture avalon of SampleRateClk is
 signal counter: std_logic_vector(31 downto 0);
 signal local_clk: std_logic;
 begin
