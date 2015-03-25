@@ -1,0 +1,10 @@
+
+**** Build of configuration Nios II for project FIFO ****
+
+make all 
+Info: Building ../FIFO_bsp/
+make --no-print-directory -C ../FIFO_bsp/
+[BSP build complete]
+[FIFO build complete]
+
+**** Build Finished ****

@@ -1,0 +1,96 @@
+/*************************************************************************
+* Description:                                                           *
+* The following is the microC code demonstrating use of the Altera       *
+* University IP Cores                                                    *
+**************************************************************************/
+
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include "includes.h"
+#include "altera_up_avalon_audio.h"
+#include "altera_up_avalon_audio_and_video_config.h"
+
+
+/* Definition of Task Stacks and priorities */
+#define     AUDIO_DATA_TASK_STACKSIZE   2048
+#define     AUDIO_DATA_TASK_PRIORITY    1
+OS_STK      audio_data_task_stk[AUDIO_DATA_TASK_STACKSIZE];
+
+/* Other defines */
+#define     BUFFER_SIZE    128
+
+
+/* Handle audio data movement */
+void audio_data_task(void* pdata)
+{
+    alt_up_audio_dev * audio_dev;
+    alt_up_av_config_dev * audio_config_dev;
+
+    unsigned int l_buf[BUFFER_SIZE];
+    int i = 0;
+    int writeSizeL = 0;
+
+    audio_config_dev = alt_up_av_config_open_dev("/dev/audio_and_video_config_0");
+    if ( audio_config_dev == NULL)
+        printf("Error: could not open audio config device \n");
+    else
+        printf("Opened audio config device \n");
+
+    /* Open Devices */
+    audio_dev = alt_up_audio_open_dev ("/dev/audio_0");
+    if ( audio_dev == NULL)
+        printf("Error: could not open audio device \n");
+    else
+        printf("Opened audio device \n");
+
+    /* Configure WM8731 */
+    alt_up_av_config_reset(audio_config_dev);
+    alt_up_audio_reset_audio_core(audio_dev);
+
+    /* Write to configuration registers in the audio codec; see datasheet for what these values mean */
+    alt_up_av_config_write_audio_cfg_register(audio_config_dev, 0x0, 0x17);
+    alt_up_av_config_write_audio_cfg_register(audio_config_dev, 0x1, 0x17);
+    alt_up_av_config_write_audio_cfg_register(audio_config_dev, 0x2, 0x79);
+    alt_up_av_config_write_audio_cfg_register(audio_config_dev, 0x3, 0x79);
+    alt_up_av_config_write_audio_cfg_register(audio_config_dev, 0x4, 0x15);
+    alt_up_av_config_write_audio_cfg_register(audio_config_dev, 0x5, 0x06);
+    alt_up_av_config_write_audio_cfg_register(audio_config_dev, 0x6, 0x00);
+
+    //main loop
+    while(1)
+    {
+            //read the data from the left buffer
+            writeSizeL = alt_up_audio_read_fifo(audio_dev, l_buf, BUFFER_SIZE, ALT_UP_AUDIO_LEFT);
+            //shift values to a proper base value
+            for (i = 0; i < writeSizeL; i = i+1)
+            {
+                l_buf[i] = l_buf[i] + 0x7fff;
+                //printf("%d,",l_buf[i]);
+            }
+
+            //write data to the L and R buffers; R buffer will receive a copy of L buffer data
+            alt_up_audio_write_fifo (audio_dev, l_buf, writeSizeL, ALT_UP_AUDIO_RIGHT);
+            alt_up_audio_write_fifo (audio_dev, l_buf, writeSizeL, ALT_UP_AUDIO_LEFT);
+
+    }
+
+}
+
+
+/* main task */
+int main(void)
+{
+    OSTaskCreateExt(audio_data_task,
+                  NULL,
+                  (void *)&audio_data_task_stk[AUDIO_DATA_TASK_STACKSIZE-1],
+                  AUDIO_DATA_TASK_PRIORITY,
+                  AUDIO_DATA_TASK_PRIORITY,
+                  audio_data_task_stk,
+                  AUDIO_DATA_TASK_STACKSIZE,
+                  NULL,
+                  0);
+
+    OSStart();
+    return 0;
+}

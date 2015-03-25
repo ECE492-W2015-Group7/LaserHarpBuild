@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include "includes.h"
+#include <math.h>
+#include "altera_avalon_jtag_uart_regs.h"
+#include <io.h>
+#include "altera_avalon_fifo_util.h"
+#include "altera_avalon_fifo_regs.h"
+#include "altera_avalon_fifo.h"
+
+/* Definition of Task Stacks */
+#define   TASK_STACKSIZE       2048
+OS_STK    task1_stk[TASK_STACKSIZE];
+
+/* Definition of Task Priorities */
+
+#define TASK1_PRIORITY      1
+
+void task1(void* pdata)
+{
+
+
+	altera_avalon_fifo_init(FIFO_0_OUT_CSR_BASE, 0x0, 10, FIFO_0_OUT_CSR_FIFO_DEPTH-10);
+
+	int level;
+	unsigned int temp;
+	while (1){
+
+		temp = altera_avalon_fifo_read_fifo(FIFO_0_OUT_BASE, FIFO_0_OUT_CSR_BASE);
+
+		level =altera_avalon_fifo_read_level(FIFO_0_OUT_CSR_BASE);
+		printf("%d\n",level);
+
+
+
+	}
+}
+
+
+int main(void)
+{
+  OSTaskCreateExt(task1,
+                  NULL,
+                  (void *)&task1_stk[TASK_STACKSIZE-1],
+                  TASK1_PRIORITY,
+                  TASK1_PRIORITY,
+                  task1_stk,
+                  TASK_STACKSIZE,
+                  NULL,
+                  0);
+
+  OSStart();
+  return 0;
+}
+
+

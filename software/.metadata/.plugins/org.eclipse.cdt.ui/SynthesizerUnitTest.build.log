@@ -1,0 +1,10 @@
+
+**** Build of configuration Nios II for project SynthesizerUnitTest ****
+
+make all 
+Info: Building ../SynthesizerUnitTest_bsp/
+make --no-print-directory -C ../SynthesizerUnitTest_bsp/
+[BSP build complete]
+[SynthesizerUnitTest build complete]
+
+**** Build Finished ****

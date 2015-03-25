@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable>
+  <columns>
+   <connections preferredWidth="319" />
+   <irq preferredWidth="34" />
+   <inputclock preferredWidth="187" />
+   <name preferredWidth="321" />
+   <export preferredWidth="272" />
+  </columns>
+ </systemtable>
+ <clocktable>
+  <columns>
+   <clockname preferredWidth="323" />
+   <clocksource preferredWidth="323" />
+   <frequency preferredWidth="320" />
+  </columns>
+ </clocktable>
+ <library
+   expandedCategories="Library/University Program,Library/Interface Protocols/Ethernet,Library/Memories and Memory Controllers,Library/Terasic Technologies Inc,Library/University Program/Audio &amp; Video,Library,Project,Library/University Program/Audio &amp; Video/Video,Library/Interface Protocols/Ethernet/Example,Library/Interface Protocols,Library/Memories and Memory Controllers/On-Chip" />
+ <window width="1440" height="860" x="0" y="0" />
+ <hdlexample language="VERILOG" />
+</preferences>

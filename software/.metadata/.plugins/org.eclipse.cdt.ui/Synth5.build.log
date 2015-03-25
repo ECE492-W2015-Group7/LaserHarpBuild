@@ -1,0 +1,10 @@
+
+**** Build of configuration Nios II for project Synth5 ****
+
+make all 
+Info: Building ../Synth5_bsp/
+make --no-print-directory -C ../Synth5_bsp/
+[BSP build complete]
+[Synth5 build complete]
+
+**** Build Finished ****
